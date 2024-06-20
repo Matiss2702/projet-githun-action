@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+
+  composer:
+    image: composer:2.2.9
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
